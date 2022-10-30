@@ -1,0 +1,62 @@
+details {
+    position: relative; /* to put the icon on the right side */
+    margin: 5% auto 0;
+    background: #f3f3f3;
+    border-radius: 1em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border: 5px solid #7D6E83;
+
+}
+
+details, summary {
+    max-width: 800px;
+}
+
+summary {
+    user-select: none; /* avoid text selection when accidentally double clicked */
+    cursor: pointer;
+    padding: 1.5em;
+    list-style: none; /* remove the default > icon */
+}
+
+/** replacing the default icon, if you want to place the icon before the 
+content of <summary>, replace ::after by ::before and you can change the 
+display method to 'inline-block' and remove the absolute position **/
+summary::after { 
+    position:absolute;
+    right:0;
+    margin-right: 1em;
+    content:">"; 
+    transition: transform 200ms ease-out; /* icon animation */
+}
+
+details[open] summary::after {
+    transform: rotate(90deg); /* icon toggle rotation animation */
+}
+
+p {
+    padding: 1em;
+    line-height: 1.6;
+    color:#c0c0c0;
+    transition: color 400ms ease-out; /* text animation */
+
+}
+
+details[open] p{
+    color: #414141; /* color darkened */
+    animation: expandAnimation 100ms linear forwards;
+} 
+
+@keyframes expandAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-1em) /* define from where the text appear */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* if you want to animate the details element itself, the best method would be to use the scrollHeight javascript property, here is a solution : https://justmarkup.com/articles/2020-09-22-styling-and-animation-details/ */
